@@ -55,7 +55,7 @@
   justify-content: center;
   align-items: center;
   gap: 20px;  
-  min-width: 140vh;
+  min-width: 120vh;
   min-height: 80vh;
   box-shadow: 7px 10px 10px rgba(61, 61, 61, 0.8);
   
@@ -87,7 +87,7 @@
 }
 .signin{
   font-family: Graf;
-  color: #859555;
+  color: #5967c2;
   font-size: 7em;
   letter-spacing: 8px;
 }
@@ -156,21 +156,25 @@ height: 50px;
   font-size: 20px;
 }
 .signinbutom{
-  color: #CAC8C4;
+  color: #55916e;
+  ;
 }
 .registerbutton{
   color: #B47171;
   
 }
 .pass{
-  color: #717070;
+  color: #bebcbc;
   margin-left: 15px;
   margin-bottom: 10px;
+  letter-spacing: 15px;
 }
 .em{
-  color: #717070;
+  color: #bebcbc;
   margin-left: 15px;
   margin-bottom: 10px;
+  letter-spacing: 15px;
+
   
 }
 .background{
@@ -181,6 +185,7 @@ height: 50px;
   height: 100vh;
   z-index: -1;         /* behind everything */
   display: block;
+
 
   
 }

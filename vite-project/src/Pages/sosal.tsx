@@ -4,9 +4,9 @@ import { createNoise3D } from "simplex-noise";
 
 // 🎛 CONFIG
 const CONFIG = {
-  contourLevels: 15,       // always controls number of contour "bands"
+  contourLevels: 16,       // always controls number of contour "bands"
   noiseScale: 0.003,
-  animationSpeed: 0.005,
+  animationSpeed: 0.006,
   resolution: 2,
 
   // 🎨 COLORS
@@ -127,7 +127,7 @@ const ContourAnimation: React.FC = () => {
     };
 
     gsap.ticker.add(render);
-    gsap.ticker.fps(30);
+    gsap.ticker.fps(120);
 
     window.addEventListener("resize", resize);
 
