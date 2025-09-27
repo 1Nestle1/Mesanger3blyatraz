@@ -2,11 +2,14 @@ import React, { useRef } from "react";
 import { gsap } from "gsap";
 import { createNoise3D } from "simplex-noise";
 
+import style from "./sosal.module.css";
+
+
 // 🎛 CONFIG
 const CONFIG = {
-  contourLevels: 16,       // always controls number of contour "bands"
+  contourLevels: 15,       // always controls number of contour "bands"
   noiseScale: 0.003,
-  animationSpeed: 0.006,
+  animationSpeed: 0.005,
   resolution: 2,
 
   // 🎨 COLORS
@@ -127,7 +130,7 @@ const ContourAnimation: React.FC = () => {
     };
 
     gsap.ticker.add(render);
-    gsap.ticker.fps(120);
+    gsap.ticker.fps(30);
 
     window.addEventListener("resize", resize);
 
@@ -137,7 +140,7 @@ const ContourAnimation: React.FC = () => {
     };
   };
 
-  return <canvas ref={initCanvas} className="background" />;
+  return <canvas ref={initCanvas} className={style.background} />;
 };
 
 export default ContourAnimation;
