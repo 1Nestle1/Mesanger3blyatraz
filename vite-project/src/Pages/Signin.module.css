@@ -1,0 +1,176 @@
+#root {
+  
+  margin: 0 0;
+  padding: 0 0  ;
+  text-align: center;
+}
+:root{
+  margin: 0px,0px;
+  padding: 0;
+}
+/* .profile_img{
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+.Me_profile{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.companion{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+.img_companion{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+.searchbar{
+  gap: 10px;
+  width: 750px;
+  height: 75px;
+  background-color: #3b3b3b;
+  border-radius: 70px;
+  justify-content: center;
+}
+.search{
+  width: 100%;
+  height: 100%;
+  border-radius: 70px;
+  background-color: #3b3b3b;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+
+} */
+.signincard{
+  background-color: #3b3b3bb9;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;  
+  min-width: 140vh;
+  min-height: 80vh;
+  box-shadow: 7px 10px 10px rgba(61, 61, 61, 0.8);
+  backdrop-filter: blur(1px);
+  
+
+}
+
+.SignInPage{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  height: 100vh;
+  /* background-image: url('../assets/Group11.png'); */
+  background-size:cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-left: -15px;
+  margin-right: -15px;
+  margin-top: -9Px;
+  margin-bottom: px;
+}
+.in{
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  align-items: center;
+  align-content: center;
+  max-width:auto;
+}
+.signin{
+  font-family: Graf;
+  color: #559572;
+  font-size: 7em;
+  letter-spacing: 8px;
+}
+.TextInputs{
+  display: flex;
+  flex-direction: column;
+  font-family: arcade;
+  font-size: small;
+  gap: 50px;
+}
+.buttons{
+ display: flex;
+ gap: 20px;
+}
+.signinbutton{
+  background-color: transparent;
+  outline: none;
+  border: none;
+  font-family: ARCADE;
+}
+.registerbutton{
+  background-color: transparent;
+  outline: none;
+  border: none;
+  font-family: ARCADE;
+}
+.signupbutton{
+  background-color: #3b3b3b;
+}
+@font-face {
+  font-family:Graf ;
+  src: url("../src/assets/Urban Starblues Demo.otf");
+}
+@font-face {
+  font-family:ARCADE;
+  src: url("../src/assets/ARCADECLASSIC.TTF");
+}
+body{
+  overflow: hidden;
+}
+h1 {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  margin-block-start: 0px;
+  margin-inline-end: 0px;
+  margin-inline-start: 0px;
+  margin-block-end: 0px;
+  letter-spacing: 5px;
+  
+}
+.buttons{
+  display: flex;
+  gap: 80px;
+  font-size: 2em;
+}
+.pass.em{
+  font-family: ARCADE;
+  background: #777777;
+  outline: none;
+  border: none;
+  border-radius: 82px;
+width: 500px;
+height: 50px;
+  color: #fff;
+  font-size: 20px;
+}
+.signinbutom{
+  color: #CAC8C4;
+}
+.registerbutton{
+  color: #B47171;
+  
+}
+.pass{
+  color: #717070;
+  margin-left: 15px;
+  margin-bottom: 10px;
+}
+.em{
+  color: #717070;
+  margin-left: 15px;
+  margin-bottom: 10px;
+  
+}

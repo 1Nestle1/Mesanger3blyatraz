@@ -1,0 +1,156 @@
+#root {
+  
+  margin: 0 0;
+  padding: 0 0  ;
+  text-align: center;
+}
+:root{
+  margin: 0px,0px;
+  padding: 0;
+}
+
+.signincard{
+  background-color: #3b3b3bb9;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;  
+  min-width: 120vh;
+  min-height: 80vh;
+  box-shadow: 7px 10px 10px rgba(61, 61, 61, 0.8);
+  
+
+}
+
+.SignInPage{
+  position: relative;
+  min-height: min-h-screen;
+  /* items-center justify-center */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  height: 100vh;
+  /* background-image: url('../assets/Group11.png'); */
+  /* background-size:cover; */
+  /* background-position: center; */
+  /* background-repeat: no-repeat; */
+  margin-left: -15px;
+  margin-right: -15px;
+  margin-top: -9Px;
+  margin-bottom: px;
+}
+.in{
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  align-items: center;
+  align-content: center;
+  max-width:auto;
+}
+.signin{
+  font-family: Graf;
+  color: #5967c2;
+  font-size: 7em;
+  letter-spacing: 8px;
+}
+.TextInputs{
+  display: flex;
+  flex-direction: column;
+  font-family: arcade;
+  font-size: small;
+  gap: 50px;
+}
+.buttons{
+ display: flex;
+ gap: 20px;
+}
+.signinbutton{
+  background-color: transparent;
+  outline: none;
+  border: none;
+  font-family: ARCADE;
+}
+.registerbutton{
+  background-color: transparent;
+  outline: none;
+  border: none;
+  font-family: ARCADE;
+}
+.signupbutton{
+  background-color: #3b3b3b;
+}
+@font-face {
+  font-family:Graf ;
+  src: url("../src/assets/Urban Starblues Demo.otf");
+}
+@font-face {
+  font-family:ARCADE;
+  src: url("../src/assets/ARCADECLASSIC.TTF");
+}
+body{
+  overflow: hidden;
+}
+h1 {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  margin-block-start: 0px;
+  margin-inline-end: 0px;
+  margin-inline-start: 0px;
+  margin-block-end: 0px;
+  letter-spacing: 5px;
+  
+}
+.buttons{
+  display: flex;
+  gap: 80px;
+  font-size: 2em;
+}
+.email, .password{
+  font-family: ARCADE;
+  background: #777777;
+  outline: none;
+  border: none;
+  border-radius: 82px;
+  width: 500px;
+  height: 50px;
+  color: #fff;
+  font-size: 20px;
+}
+.signinbutom{
+  color: #55916e;
+  ;
+}
+.registerbutton{
+  color: #B47171;
+  
+}
+.pass{
+  color: #bebcbc;
+  margin-left: 15px;
+  margin-bottom: 10px;
+  letter-spacing: 15px;
+}
+.em{
+  color: #bebcbc;
+  margin-left: 15px;
+  margin-bottom: 10px;
+  letter-spacing: 15px;
+
+  
+}
+.background{
+  position: fixed;     /* always cover screen */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;         /* behind everything */
+  display: block;
+
+
+  
+}
