@@ -1,14 +1,38 @@
+import { useState } from "react";
 import ContourAnimation from "./sosal";
-import style from './register.module.css'
+import style from "./register.module.css";
+
+const DEFAULT_CONFIG = {
+  contourLevels: 15,
+  noiseScale: 0.003,
+  animationSpeed: 0.005,
+  resolution: 2,
+  useCustomColors: 0,
+  colors: ["#ff006e", "#fb5607", "#ffbe0b", "#3a86ff", "#8338ec", "#d53b9d"],
+  colorHue: 250,
+  colorSpread: 36,
+};
+
+const HOVER_CONFIG = {
+  ...DEFAULT_CONFIG,
+  colorHue: 230, // например, зелёный оттенок при наведении
+  animationSpeed: 0.01, // ускоряем анимацию
+};
 
 function Register() {
+  const [config, setConfig] = useState(DEFAULT_CONFIG);
+
   return (
-    <div className={`${style.SignInPage}`}>
+    <div className={style.SignInPage}>
       {/* 🎨 Background */}
-      <ContourAnimation />
+      <ContourAnimation config={config} />
 
       {/* 📦 Sign-in card */}
-      <div className={style.signincard + " relative z-10"}>
+      <div
+        className={style.signincard + " relative z-10"}
+        onMouseEnter={() => setConfig(HOVER_CONFIG)}
+        onMouseLeave={() => setConfig(DEFAULT_CONFIG)}
+      >
         <div className={style.in}>
           <h1 className={style.signin}>Welcome</h1>
 

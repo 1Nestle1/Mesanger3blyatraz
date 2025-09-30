@@ -1,23 +1,7 @@
 import React, { useRef } from "react";
 import { gsap } from "gsap";
 import { createNoise3D } from "simplex-noise";
-
 import style from "./sosal.module.css";
-
-
-// 🎛 CONFIG
-const CONFIG = {
-  contourLevels: 15,       // always controls number of contour "bands"
-  noiseScale: 0.003,
-  animationSpeed: 0.005,
-  resolution: 2,
-
-  // 🎨 COLORS
-  useCustomColors: 0,
-  colors: ["#ff006e", "#fb5607", "#ffbe0b", "#3a86ff", "#8338ec", "#d53b9d", "#ff006e", "#fb5607", "#ffbe0b", "#3a86ff", "#8338ec", "#d53b9d"],
-  colorHue: 250,
-  colorSpread: 36,
-};
 
 // utils: hex → rgb
 function hexToRgb(hex: string): [number, number, number] {
@@ -48,7 +32,21 @@ function hslToRgb(h: number, s: number, l: number): [number, number, number] {
   return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
 }
 
-const ContourAnimation: React.FC = () => {
+// 🔑 теперь Config приходит как проп
+interface ContourAnimationProps {
+  config: {
+    contourLevels: number;
+    noiseScale: number;
+    animationSpeed: number;
+    resolution: number;
+    useCustomColors: number;
+    colors: string[];
+    colorHue: number;
+    colorSpread: number;
+  };
+}
+
+const ContourAnimation: React.FC<ContourAnimationProps> = ({ config }) => {
   const noise3D = useRef(createNoise3D());
   const time = useRef(0);
   const cleanupRef = useRef<(() => void) | null>(null);
@@ -69,12 +67,12 @@ const ContourAnimation: React.FC = () => {
     resize();
 
     // 🎨 Build palette
-    const palette: [number, number, number][] = CONFIG.useCustomColors
-      ? CONFIG.colors.map(hexToRgb)
-      : Array.from({ length: CONFIG.contourLevels }, (_, level) => {
+    const palette: [number, number, number][] = config.useCustomColors
+      ? config.colors.map(hexToRgb)
+      : Array.from({ length: config.contourLevels }, (_, level) => {
           const hue =
-            CONFIG.colorHue +
-            (level / CONFIG.contourLevels) * CONFIG.colorSpread;
+            config.colorHue +
+            (level / config.contourLevels) * config.colorSpread;
           return hslToRgb(hue / 360, 1, 0.6);
         });
 
@@ -82,35 +80,33 @@ const ContourAnimation: React.FC = () => {
       const imageData = ctx.createImageData(canvas.width, canvas.height);
       const data = imageData.data;
 
-      for (let y = 0; y < canvas.height; y += CONFIG.resolution) {
-        for (let x = 0; x < canvas.width; x += CONFIG.resolution) {
+      for (let y = 0; y < canvas.height; y += config.resolution) {
+        for (let x = 0; x < canvas.width; x += config.resolution) {
           const n =
             noise3D.current!(
-              x * CONFIG.noiseScale,
-              y * CONFIG.noiseScale,
+              x * config.noiseScale,
+              y * config.noiseScale,
               time.current
             ) *
               0.5 +
             0.5;
 
-          // first map noise → contour band
           const contourVal = Math.min(
-            CONFIG.contourLevels - 1,
-            Math.floor(n * CONFIG.contourLevels)
+            config.contourLevels - 1,
+            Math.floor(n * config.contourLevels)
           );
 
-          // then map contour band → color index
-          const colorIndex = CONFIG.useCustomColors
+          const colorIndex = config.useCustomColors
             ? Math.floor(
-                (contourVal / (CONFIG.contourLevels - 1)) *
-                  (CONFIG.colors.length - 1)
+                (contourVal / (config.contourLevels - 1)) *
+                  (config.colors.length - 1)
               )
             : contourVal;
 
           const [r, g, b] = palette[colorIndex];
 
-          for (let dy = 0; dy < CONFIG.resolution; dy++) {
-            for (let dx = 0; dx < CONFIG.resolution; dx++) {
+          for (let dy = 0; dy < config.resolution; dy++) {
+            for (let dx = 0; dx < config.resolution; dx++) {
               const px = ((y + dy) * canvas.width + (x + dx)) * 4;
               data[px] = r;
               data[px + 1] = g;
@@ -125,7 +121,7 @@ const ContourAnimation: React.FC = () => {
     };
 
     const render = () => {
-      time.current += CONFIG.animationSpeed;
+      time.current += config.animationSpeed;
       draw();
     };
 
