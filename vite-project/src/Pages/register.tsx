@@ -15,8 +15,9 @@ const DEFAULT_CONFIG = {
 
 const HOVER_CONFIG = {
   ...DEFAULT_CONFIG,
-  colorHue: 230, // например, зелёный оттенок при наведении
-  animationSpeed: 0.01, // ускоряем анимацию
+  colorHue: 210, // например, зелёный оттенок при наведении
+  animationSpeed: 0.1,
+  resolution:20 // ускоряем анимацию
 };
 
 function Register() {
@@ -25,7 +26,9 @@ function Register() {
   return (
     <div className={style.SignInPage}>
       {/* 🎨 Background */}
+      <div className={style.blur}>
       <ContourAnimation config={config} />
+      </div>
 
       {/* 📦 Sign-in card */}
       <div

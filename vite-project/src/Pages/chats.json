@@ -1,0 +1,39 @@
+{
+    "chats": [
+        {
+            "userId": 1,
+            "name": "John Doe",
+            "avatar": "https://avatar.iran.liara.run/public",
+            "lastMessage": "Hello, how are you?",
+            "state": "online"
+        },
+        {
+            "userId": 2,
+            "name": "Jane Doe",
+            "avatar": "https://avatar.iran.liara.run/public/8",
+            "lastMessage": "Hello, how are you?",
+            "state": "online"
+        },
+        {
+            "userId": 3,
+            "name": "Bob Smith",
+            "avatar": "https://avatar.iran.liara.run/public/12",
+            "lastMessage": "Hello, how are you?",
+            "state": "online"
+        },
+        {
+            "userId": 4,
+            "name": "Alice Johnson",
+            "avatar": "https://avatar.iran.liara.run/public/5",
+            "lastMessage": "Hello, how are you?",
+            "state": "online"
+        },
+        {
+            "userId": 5,
+            "name": "Charlie Brown",
+            "avatar": "https://avatar.iran.liara.run/public/6",
+            "lastMessage": "Hello, how are you?",
+            "state": "online"
+        }
+    ]
+}

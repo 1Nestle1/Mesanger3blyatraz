@@ -2,7 +2,10 @@ import { useState } from "react";
 import ContourAnimation from "./sosal";
 import { Link } from "react-router-dom";
 import style from "./mainwindow.module.css";
-
+import user from "./chats.json";
+import useStoreAndGroup from "../Stores/curmessages";
+import ChatInput from "../components/MessageSend";
+import ChatsBlock from "../components/ChatWindow";
 // базовый конфиг
 const DEFAULT_CONFIG = {
   contourLevels: 15,
@@ -14,48 +17,94 @@ const DEFAULT_CONFIG = {
   colorHue: 250,
   colorSpread: 36,
 };
+// useCurChatStore.getState().setCurChat(user.chats[0]);
 
 interface Companion {
   img?: string;
   name?: string;
+  state?: string;
+  last?: string;
 }
 
 const CurCompanion = ({ companion }: { companion: Companion }) => {
   return (
     <div className={style.curcomp}>
-      <div className={style.curcompimg}>
         <img
           className={style.curcompimg}
           src={companion.img || ""}
           alt={companion.name || "companion"}
         />
+    <div className={style.curcompname}>
+        {companion.name}
+        </div>
     </div>
-    </div>
+    
+    
   );
 };
+const   Companion = ({ user }: { user: any }) => {
+  // const chat =user.chats
+  return (
+    <div className={style.companion}>
+      <img
+        className={style.companionimg }
+        src={user.avatar || ""}
+        alt={user.name || "companion"}
+      />
+      <div className ={style.companion_info}>
+      <div className={style.companion_name}>{user.name}</div>      
+        <div className={style.companion_state}>{user.state}</div>
+      </div>
+
+      <div className={style.companion_last}>{user.lastmessage}</div>
+      </div>
+  );
+}
+
+const Chatlist = () => {
+  return (
+    <div className={style.chatlist}>
+      {user.chats.map((user: any) => (
+        <Companion key={user.id} user={user} />
+      ))}
+    </div>
+  );
+}
 
 export default function MainWindow() {
   const [config] = useState(DEFAULT_CONFIG);
 
   const companion: Companion = {
-    img: "",
-    name: "current companion",
+    img: "../src/assets/3d_avatar_21.png",
+    name: "Emily Clark",
+    state: "online",
+    last: "hello",
   };
 
   return (
     <div id="chatPage">
-      <div className={style.blur}>
-      <ContourAnimation config={config}  ></ContourAnimation>
+      <div className={style.vinetka}>
+        <div className={style.blur}>
+        <ContourAnimation config={config}  ></ContourAnimation>
+        </div>
       </div>
         <div className={style.chats}>
-            <div className={style.header}>
+            </div>
+            <div className={style.chatwindow} >
+            <div className={style.sidebar}>
                 <CurCompanion companion={companion} />
-                <div className={style.searchinput}>
+                <Chatlist/>
+            </div> 
+            <div className={style.mainblock}>
+              <div className={style.searchinput}>
+                    <div className={style.menu}>MENU</div>
                     <input className={style.search} type="text" />
-                    <div className={style.menu}></div>
                 </div>
+              <ChatsBlock/>
+              <ChatInput />
+              </div>
             </div>
         </div>
-    </div>
   );
 }
+

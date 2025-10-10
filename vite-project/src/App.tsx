@@ -12,15 +12,12 @@ const App=()=>{
         <BrowserRouter> 
                 <Routes>
   <Route path="/" element={<Navigate to="/register" replace />} />
-  <Route path="/main" element={<ContourAnimation />} />
   <Route path="/sign_in" element={<SignInPage />} />
   <Route path='/register' element={<Register />} />
   <Route path='/main_window' element={<MainWindow />} />
 </Routes>
         </BrowserRouter>
     )
-
-
   }
 export default App
 

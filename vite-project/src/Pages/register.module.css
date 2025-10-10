@@ -154,3 +154,14 @@ h1 {
 
   
 }
+.blur{
+  transition: all 0.3s ease-in-out;
+  filter: blur(4px);
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 200;
+  left: 0;
+  z-index: -1;
+  ;
+}
