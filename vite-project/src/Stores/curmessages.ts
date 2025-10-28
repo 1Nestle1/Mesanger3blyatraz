@@ -6,12 +6,14 @@ export interface Message {
   text: string;
   senderId: number;
   created_at: Date;
+  senderName: string;
+  senderAvatar: string; 
 }
 
-const defaultSender = {
+export const defaultSender = {
   id: 1,
   name: "John Doe",
-  avatar: "https://example.com/avatar.jpg",
+  avatar: "",
 };
 
 interface ChatStore {
@@ -25,6 +27,7 @@ const useStoreAndGroup = create<ChatStore>((set) => ({
   defaultSender,
   addMessage: (messageData) =>
     set((state) => ({
+      ...state,
       messages: [
         ...state.messages, // 
         {
@@ -32,9 +35,13 @@ const useStoreAndGroup = create<ChatStore>((set) => ({
           text: messageData.text,
           senderId: messageData.senderId,
           created_at: messageData.created_at,
+          senderName: state.defaultSender.name,
+          senderAvatar: messageData.senderAvatar,
+          
         },
       ],
     })),
-}));
+})
+);
 
 export default useStoreAndGroup;

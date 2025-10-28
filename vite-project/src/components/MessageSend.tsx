@@ -1,10 +1,13 @@
 import { useState, useCallback } from "react";
 import useStoreAndGroup from "../Stores/curmessages";
 import style from "../Pages/mainwindow.module.css";
+import { useShallow } from "zustand/shallow";
 
 const ChatInput = () => {
   const [message, setMessage] = useState("");
-  const addMessage = useStoreAndGroup((state) => state.addMessage); // ✅ Select only what you need
+  const {addMessage} = useStoreAndGroup(useShallow((state) => ({
+    addMessage: state.addMessage, 
+  }))); 
 
   const handleMessageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);
@@ -19,6 +22,8 @@ const ChatInput = () => {
           text: message, // 
           senderId: 10,
           created_at: new Date(),
+          senderName: "John Doe",
+          senderAvatar: "https://avatar.iran.liara.run/public",
         });
 
         setMessage(""); 
@@ -36,7 +41,6 @@ const ChatInput = () => {
         id="textiput"
         onKeyDown={handleKeyDown}      
         onChange={handleMessageChange}
-        placeholder="Type a message..."
       />
     </div>
   );
