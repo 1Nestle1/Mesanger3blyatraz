@@ -1,73 +1,77 @@
 // ChatsBlock.tsx
 import useStoreAndGroup from '../Stores/curmessages';
+import { useAllChats } from '../Stores/allchats';
 import style from '../Pages/mainwindow.module.css';
-import { use, type CSSProperties } from 'react';
 import { useShallow } from 'zustand/shallow';
+import { useEffect, useRef } from 'react';
+
+interface MessageData {
+  id: string | number;
+  chatId: string | number;
+  senderId: number;
+  senderAvatar?: string;
+  text: string;
+}
 
 const ChatsBlock = () => {
-  // Safely select messages
+  const curChat = useAllChats((state) => state.activeChatId);
   const messages = useStoreAndGroup((state) => state.messages);
-
-  // Optional: get last sender safely
+  const filteredMessages = messages.filter((message) => message.chatId === curChat);
+    
+  const containerRef = useRef<HTMLDivElement>(null);
   
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  }, [filteredMessages]); // Changed dependency to filteredMessages
 
   return (
-    <div className={style.chatsblock}>
-      {messages.map((message: any, index) => 
-      <Message
-        currentIndex={index}
-        // style={bubblestyle}
-        {...message}/>
-      )}
+    <div className={style.chatsblock} ref={containerRef}>
+      {filteredMessages.map((message, index) => (
+        <Message 
+          key={message.id} 
+          message={message as MessageData} 
+          index={index} 
+          messages={filteredMessages as MessageData[]} 
+        />
+      ))}
     </div>
-  );
+  )
 };
 
-type MessageT = {
-  id: string
-  text: string
-  senderId: number
-  created_at: Date
-  style: CSSProperties
-  currentIndex: number
-  senderAvatar: string
-}
+const Message = ({ 
+  message, 
+  index, 
+  messages 
+}: { 
+  message: MessageData; 
+  index: number; 
+  messages: MessageData[] 
+}) => {
+  const prevMessage = index > 0 ? messages[index - 1] : null;
+  const isNewSender = !prevMessage || prevMessage.senderId !== message.senderId;
 
-const Message = (props: MessageT) => {
-  let bubblestyle= null;
-  const {messages} = useStoreAndGroup(useShallow((state) => ({
-    messages: state.messages})));
-  let prevMessage = null
-  
-  if (props.currentIndex === 0) {
-    prevMessage = props.senderId===4
-  }
-  else {
-    prevMessage = messages[props.currentIndex - 1];
-  }
-
-  if (prevMessage.senderId !== props.senderId ) {
-      bubblestyle = style.friend
-      return(
-        <div className={style.chatline}>
-          <img className={style.friendimg} src={props.senderAvatar} alt="" />     
-          <div key={props.id} className={style.chatbubble + " " + bubblestyle}>
-            {props.text}
-          </div>
+  if (message.senderId !== 10 || isNewSender) {
+    return (
+      <div className={style.chatline}>
+        {isNewSender && message.senderAvatar && (
+          <img className={style.friendimg} src={message.senderAvatar} alt="" />
+        )}
+        <div className={`${style.chatbubble} ${style.friend}`}>
+          {message.text}
         </div>
-      )
-    }
-    else {
-      bubblestyle = style.me
-      return(
-        <div>   
-          <div key={props.id} className={style.chatbubble + " " + bubblestyle}>
-            {props.text}
-          </div>
+      </div>
+    );
+  } else {
+    return (
+      <div className={style.chatline}>
+        <div className={`${style.chatbubble} ${style.me}`}>
+          {message.text}
         </div>
-      )
-    }
-    
-}
+      </div>
+    );
+  }
+};
 
 export default ChatsBlock;

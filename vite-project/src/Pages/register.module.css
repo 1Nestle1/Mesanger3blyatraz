@@ -71,13 +71,13 @@
   background-color: transparent;
   outline: none;
   border: none;
-  font-family: ARCADE;
+  font-family: ARCADEeng;
 }
 .registerbutton{
   background-color: transparent;
   outline: none;
   border: none;
-  font-family: ARCADE;
+  font-family: ARCADEeng;
 }
 .signupbutton{
   background-color: #3b3b3b;
@@ -87,7 +87,7 @@
   src: url("../src/assets/Urban Starblues Demo.otf");
 }
 @font-face {
-  font-family:ARCADE;
+  font-family:arcadeeng;
   src: url("../src/assets/ARCADECLASSIC.TTF");
 }
 body{
@@ -104,13 +104,30 @@ h1 {
   letter-spacing: 5px;
   
 }
+@theme inline {
+  --animate-meteor: meteor 5s linear infinite;
+
+  @keyframes meteor {
+    0% {
+      transform: rotate(var(--angle)) translateX(0);
+      opacity: 1;
+    }
+    70% {
+      opacity: 1;
+    }
+    100% {
+      transform: rotate(var(--angle)) translateX(-500px);
+      opacity: 0;
+    }
+  }
+}
 .buttons{
   display: flex;
   gap: 80px;
   font-size: 2em;
 }
 .email, .password{
-  font-family: ARCADE;
+  font-family: ARCADEeng;
   background: #777777;
   outline: none;
   border: none;

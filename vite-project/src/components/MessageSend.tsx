@@ -2,17 +2,24 @@ import { useState, useCallback } from "react";
 import useStoreAndGroup from "../Stores/curmessages";
 import style from "../Pages/mainwindow.module.css";
 import { useShallow } from "zustand/shallow";
+import { useRef,useEffect } from "react";
+import { useAllChats } from "../Stores/allchats";
+import { useUserStore } from "../Stores/allusers";
 
 const ChatInput = () => {
+  const mockUser = useUserStore((state) => state.users);
+  const user = mockUser[0];
+  const chatId = useAllChats((state) => state.activeChatId);
   const [message, setMessage] = useState("");
   const {addMessage} = useStoreAndGroup(useShallow((state) => ({
     addMessage: state.addMessage, 
   }))); 
-
+  
+  
   const handleMessageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);
   };
-
+  
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === "Enter") {
@@ -20,10 +27,11 @@ const ChatInput = () => {
         addMessage({
           id: crypto.randomUUID(),
           text: message, // 
-          senderId: 10,
+          senderId: user.id,
           created_at: new Date(),
-          senderName: "John Doe",
-          senderAvatar: "https://avatar.iran.liara.run/public",
+          senderName: user.name,
+          senderAvatar: user.avatar,
+          chatId:chatId ,
         });
 
         setMessage(""); 

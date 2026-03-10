@@ -1,13 +1,14 @@
 // Stores/curmessages.ts
 import { create } from "zustand";
-
+import { useAllChats } from "./allchats";
 export interface Message {
   id: string;
   text: string;
-  senderId: number;
+  senderId: string;
   created_at: Date;
   senderName: string;
   senderAvatar: string; 
+  chatId: string|null
 }
 
 export const defaultSender = {
@@ -37,6 +38,7 @@ const useStoreAndGroup = create<ChatStore>((set) => ({
           created_at: messageData.created_at,
           senderName: state.defaultSender.name,
           senderAvatar: messageData.senderAvatar,
+          chatId: messageData.chatId
           
         },
       ],

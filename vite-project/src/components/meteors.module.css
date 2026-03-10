@@ -1,0 +1,81 @@
+/* MeteorBackdrop.module.css */
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: -1;
+}
+
+/* Optional subtle dark overlay for readability */
+.backdrop::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: -1;
+}
+
+.meteor {
+  /* Layout & base */
+  position: absolute;
+  top: -2vh;
+  left: var(--meteor-start-x);
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  
+  /* Color & glow */
+  background-color: var(--meteor-color);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06);
+  
+  /* Rotation & animation */
+  transform: rotate(var(--meteor-angle));
+  animation: 
+    meteor-fall 
+    var(--meteor-duration, 5s) 
+    var(--meteor-delay, 0s) 
+    infinite 
+    linear;
+
+  /* Performance hint (optional, enable if jank observed) */
+  /* will-change: transform, opacity; */
+}
+
+@keyframes meteor-fall {
+  0% {
+    transform: translateY(0) rotate(var(--meteor-angle));
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) rotate(var(--meteor-angle));
+    opacity: 0;
+  }
+}
+
+/* Tail: pseudo-element for clean DOM */
+.meteor::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    var(--meteor-color),
+    transparent
+  );
+  transform: translate(-50%, -50%) rotate(var(--meteor-angle));
+  pointer-events: none;
+}

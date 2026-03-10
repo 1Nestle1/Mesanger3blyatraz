@@ -2,10 +2,14 @@ import { useState } from "react";
 import ContourAnimation from "./sosal";
 import { Link } from "react-router-dom";
 import style from "./mainwindow.module.css";
-import user from "./chats.json";
+import user from "../assets/users";
 import useStoreAndGroup from "../Stores/curmessages";
 import ChatInput from "../components/MessageSend";
 import ChatsBlock from "../components/ChatWindow";
+import ChatsList from "../components/ChatsList";
+import VerticalTripleDot from "../components/Dots";
+import { MeteorBackdrop } from "../components/meteorsTest";
+import { useEffect , useRef} from "react";
 // базовый конфиг
 const DEFAULT_CONFIG = {
   contourLevels: 15,
@@ -25,6 +29,9 @@ interface Companion {
   state?: string;
   last?: string;
 }
+const useRefresh = () => {
+  
+}
 
 const CurCompanion = ({ companion }: { companion: Companion }) => {
   return (
@@ -42,34 +49,6 @@ const CurCompanion = ({ companion }: { companion: Companion }) => {
     
   );
 };
-const   Companion = ({ user }: { user: any }) => {
-  // const chat =user.chats
-  return (
-    <div className={style.companion}>
-      <img
-        className={style.companionimg }
-        src={user.avatar || ""}
-        alt={user.name || "companion"}
-      />
-      <div className ={style.companion_info}>
-      <div className={style.companion_name}>{user.name}</div>      
-        <div className={style.companion_state}>{user.state}</div>
-      </div>
-
-      <div className={style.companion_last}>{user.lastmessage}</div>
-      </div>
-  );
-}
-
-const Chatlist = () => {
-  return (
-    <div className={style.chatlist}>
-      {user.chats.map((user: any) => (
-        <Companion key={user.id} user={user} />
-      ))}
-    </div>
-  );
-}
 
 export default function MainWindow() {
   const [config] = useState(DEFAULT_CONFIG);
@@ -86,6 +65,11 @@ export default function MainWindow() {
       <div className={style.vinetka}>
         <div className={style.blur}>
         <ContourAnimation config={config}  ></ContourAnimation>
+    <MeteorBackdrop 
+        number={50}
+        angle={225}
+        color="#8b5cf6" // purple-500
+      />
         </div>
       </div>
         <div className={style.chats}>
@@ -93,11 +77,12 @@ export default function MainWindow() {
             <div className={style.chatwindow} >
             <div className={style.sidebar}>
                 <CurCompanion companion={companion} />
-                <Chatlist/>
+                <ChatsList/>
             </div> 
             <div className={style.mainblock}>
               <div className={style.searchinput}>
-                    <div className={style.menu}>MENU</div>
+                    {/* <canvas className={style.menu} id='dotCanvas'></canvas> */}
+                    <VerticalTripleDot className={style.trippledot} />
                     <input className={style.search} type="text" />
                 </div>
               <ChatsBlock/>
