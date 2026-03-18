@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import ContourAnimation from "./sosal";
 import style from "./register.module.css";
 

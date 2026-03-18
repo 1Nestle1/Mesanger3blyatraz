@@ -59,8 +59,9 @@ export const register = async (
         // Create User
         const newUser = await prisma.user.create({
             data: { username, email, password: hashedPassword },
+            
         });
-
+        console.log('New User:', newUser);
         // Generate Token
         generateTokenAndSetCookie(newUser.id, res);
 
