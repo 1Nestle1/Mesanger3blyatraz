@@ -1,6 +1,7 @@
 import { Response } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { hashPassword } from '../services/Hasher';
 import {
     RegisterRequest,
     LoginRequest,
@@ -8,15 +9,15 @@ import {
     JwtPayload,
 } from '../types/auth';
 import prisma from '../db';
+import { generateToken } from '../services/TokenGen';
+
+// --- Helper: Generate Token & Set Cookie ---
+const TokenGenAndSetCookie = (userId: number, res: Response<AuthResponse>): void => {
+    const token = generateToken(userId);
 
 
 // --- Helper: Generate Token & Set Cookie ---
-const generateTokenAndSetCookie = (userId: number, res: Response): void => {
-    const payload: JwtPayload = { userId };
 
-    const token: string = jwt.sign(payload, process.env.JWT_SECRET as string, {
-        expiresIn: '7d',
-    });
 
     res.cookie('jwt', token, {
         httpOnly: true,
@@ -25,7 +26,7 @@ const generateTokenAndSetCookie = (userId: number, res: Response): void => {
         maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 };
-
+// Acces token , refresh token вынести в сервисы хэш пароля и токенов свзязь с дб тож вынести , удаление куки поправить
 // --- 1. REGISTER ---
 export const register = async (
     req: RegisterRequest,
@@ -53,9 +54,7 @@ export const register = async (
         }
 
         // Hash Password
-        const salt: string = await bcrypt.genSalt(10);
-        const hashedPassword: string = await bcrypt.hash(password, salt);
-
+        const hashedPassword: string = await hashPassword(password);
         // Create User
         const newUser = await prisma.user.create({
             data: { username, email, password: hashedPassword },
